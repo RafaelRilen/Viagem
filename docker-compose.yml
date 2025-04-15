@@ -32,9 +32,11 @@ services:
     container_name: viagem-db
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: secret
     volumes:
-      - .backend/docker/mysql:/var/lib/mysql
+      - ./backend/docker/mysql:/var/lib/mysql
     ports:
-      - "3309:3306"
+      - "3306:3306"

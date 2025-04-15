@@ -213,7 +213,7 @@ services:
     volumes:
       - ./docker/mysql:/var/lib/mysql
     ports:
-      - "3309:3306"
+      - "3306:3306"
 ```
 
 ---
