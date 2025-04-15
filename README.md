@@ -50,13 +50,6 @@ QUEUE_CONNECTION=database
 JWT_SECRET=CHAVE_SECRETA_JWT_GERADA
 ```
 
-Gere a chave do app e o secret JWT:
-
-```bash
-docker-compose -it viagem-backend php artisan key:generate
-docker-compose -it viagem-backend php artisan jwt:secret
-```
-
 ### 3. Subir os containers
 
 ```bash
@@ -68,28 +61,22 @@ docker-compose up -d
 
 ```bash
 # Backend
-docker-compose -it viagem-backend composer install
+docker exec -it viagem-backend composer install
+
+Gere a chave do app e o secret JWT:
+docker exec -it viagem-backend php artisan key:generate
+docker exec -it viagem-backend php artisan jwt:secret
 
 # Frontend
 cd frontend
 npm install
 ```
 
-### 5. Acessar container
-
-docker exec -it viagem-backend bash
-
-### 6. Rodar as migrations e seeders
+### 5. Rodar as migrations e seeders
 
 ```bash
-php artisan migrate
-php artisan migrate:fresh --seed
-```
-
-### 7.Caso seja necessário rodar servidor o manualmente, após acessar o container rodar  
-
-```bash
-php artisan serve --host=0.0.0.0 --port=8000
+docker exec -it viagem-backend php artisan migrate
+docker exec -it viagem-backend php artisan migrate:fresh --seed
 ```
 
 ---
@@ -97,7 +84,7 @@ php artisan serve --host=0.0.0.0 --port=8000
 ## 🧪 Testes
 
 ```bash
-docker-compose -it viagem-backend php artisan test
+docker exec -it viagem-backend php artisan test
 ```
 
 ---
