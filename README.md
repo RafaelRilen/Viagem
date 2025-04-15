@@ -102,7 +102,7 @@ docker exec -it viagem-backend php artisan test
 - `GET /api/orders` - Lista pedidos com filtros opcionais (`status`, `destination`, `start_date`, `end_date`) (autenticado)
 - `POST /api/orders` - Cria um novo pedido (autenticado)
 - `GET /api/orders/{id}` - Detalhes do pedido (autenticado)
-- `PATCH /api/orders/{id}/status` - Atualiza status (admin) - Nas seeds é gerado um usuário admin, fica no arquivo UserSeeder.php, é só definir uma senha para o mesmo  na linha: 'password' => bcrypt('qualquerSenhaAqui').
+- `PATCH /api/orders/{id}/status` - Atualiza status (admin) - Nas seeds é gerado um usuário admin, ele está no arquivo UserSeeder.
 - `PATCH /api/orders/{id}/cancel` - Cancela pedido (autenticado)
 
 ---
