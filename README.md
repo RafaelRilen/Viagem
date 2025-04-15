@@ -30,9 +30,9 @@ LOG_CHANNEL=stack
 DB_CONNECTION=mysql
 DB_HOST=db
 DB_PORT=3306
-DB_DATABASE=travel_orders
+DB_DATABASE=db
 DB_USERNAME=root
-DB_PASSWORD=root
+DB_PASSWORD=secret
 
 MAIL_MAILER=log
 MAIL_SCHEME=null
@@ -60,7 +60,8 @@ docker-compose -it viagem-backend php artisan jwt:secret
 ### 3. Subir os containers
 
 ```bash
-docker-compose up --build
+docker-compose build --no-cache
+docker-compose up -d
 ```
 
 ### 4. Instalar dependências
@@ -72,13 +73,23 @@ docker-compose -it viagem-backend composer install
 # Frontend
 cd frontend
 npm install
-npm install sweetalert2
 ```
 
-### 5. Rodar as migrations e seeders
+### 5. Acessar container
+
+docker exec -it viagem-backend bash
+
+### 6. Rodar as migrations e seeders
 
 ```bash
-docker-compose -it viagem-backend php artisan migrate:fresh --seed
+php artisan migrate
+php artisan migrate:fresh --seed
+```
+
+### 7.Caso seja necessário rodar servidor o manualmente, após acessar o container rodar  
+
+```bash
+php artisan serve --host=0.0.0.0 --port=8000
 ```
 
 ---
@@ -112,7 +123,7 @@ docker-compose -it viagem-backend php artisan test
 ## 🗂 Estrutura de Pastas
 
 ```bash
-travel-orders-backend/
+backend/
 ├── app/
 │   ├── DTOs/
 │   ├── Http/
@@ -124,7 +135,7 @@ travel-orders-backend/
 ├── routes/
 │   └── api.php
 
-travel-orders-frontend/
+frontend/
 ├── public/
 ├── src/
 │   ├── components/

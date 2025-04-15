@@ -6,7 +6,6 @@ COPY package.json .
 COPY package-lock.json .
 
 RUN npm install --ignore-scripts
-RUN npm install sweetalert2
 
 COPY . .
 
