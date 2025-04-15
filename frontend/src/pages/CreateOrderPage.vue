@@ -138,9 +138,9 @@
                     Swal.showLoading();
                 }
             });
-                await api.post('/orders', payload);
+            await api.post('/orders', payload);
 
-                await Swal.fire({
+            await Swal.fire({
                 icon: 'success',
                 title: 'Pedido Criado!',
                 text: 'Seu pedido de viagem foi criado com sucesso.',
@@ -152,10 +152,10 @@
         } catch (error: any) {
             console.error('Erro ao criar pedido:', error);
             await Swal.fire({
-            icon: 'error',
-            title: 'Erro',
-            text: 'Erro ao criar o pedido. Verifique os campos e tente novamente.',
-            confirmButtonColor: '#e74c3c',
+                icon: 'error',
+                title: 'Erro',
+                text: 'Erro ao criar o pedido. Verifique os campos e tente novamente.',
+                confirmButtonColor: '#e74c3c',
             });
         }
     };
