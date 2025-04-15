@@ -114,31 +114,37 @@
         dataVoltaError.value = volta <= ida;
     });
 
+    const formatDateForBackend = (datetime: string) => {
+        const date = new Date(datetime);
+        const pad = (n: number) => (n < 10 ? '0' + n : n);
+        return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+    };
+
     const submitForm = async () => {
+
         try {
             const payload = {
-            requester_name: form.value.nomeSolicitante,
-            destination: form.value.destino,
-            start_date: form.value.dataDeIda,
-            end_date: form.value.dataDeVolta,
+                requester_name: form.value.nomeSolicitante,
+                destination: form.value.destino,
+                start_date: formatDateForBackend(form.value.dataDeIda),
+                end_date: formatDateForBackend(form.value.dataDeVolta),
             };
 
             Swal.fire({
-            title: 'Enviando pedido...',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-            didOpen: () => {
-                Swal.showLoading();
-            }
+                title: 'Enviando pedido...',
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
             });
-    
-            await api.post('/orders', payload);
-    
-            await Swal.fire({
-            icon: 'success',
-            title: 'Pedido Criado!',
-            text: 'Seu pedido de viagem foi criado com sucesso.',
-            confirmButtonColor: '#009efb',
+                await api.post('/orders', payload);
+
+                await Swal.fire({
+                icon: 'success',
+                title: 'Pedido Criado!',
+                text: 'Seu pedido de viagem foi criado com sucesso.',
+                confirmButtonColor: '#009efb',
             });
     
             router.push('/dashboard');

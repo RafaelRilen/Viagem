@@ -50,9 +50,9 @@ class OrderService implements OrderServiceInterface
     public function updateOrderStatus(Order $order, string $status): array
     {
         $departureDate = \Carbon\Carbon::parse($order->start_date);
-        $today = \Carbon\Carbon::now();
+        $now = \Carbon\Carbon::now();
 
-        if ($departureDate->diffInDays($today) < 2 && $status == 'cancelado') {
+        if ($status == 'cancelado' && $now->diffInHours($departureDate, false) < 48 ) {
             return ['error' => 'Pedidos só podem ser cancelados com no mínimo 2 dias de antecedência.', 'status' => 400];
         }
 
