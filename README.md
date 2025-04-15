@@ -19,13 +19,27 @@ cd Viagem
 Crie um arquivo `.env` dentro da pasta `backend/` com base no `.env.example`. Exemplo:
 
 ```env
-APP_NAME=Laravel
+APP_NAME=TravelOrdersAPI
 APP_ENV=local
 APP_KEY=
 APP_DEBUG=true
-APP_URL=http://localhost:8000
+APP_TIMEZONE=UTC
+APP_URL=http://localhost
+
+APP_LOCALE=pt_BR
+APP_FALLBACK_LOCALE=pt_BR
+APP_FAKER_LOCALE=pt_BR
+
+APP_MAINTENANCE_DRIVER=file
+
+PHP_CLI_SERVER_WORKERS=4
+
+BCRYPT_ROUNDS=12
 
 LOG_CHANNEL=stack
+LOG_STACK=single
+LOG_DEPRECATIONS_CHANNEL=null
+LOG_LEVEL=debug
 
 DB_CONNECTION=mysql
 DB_HOST=db
@@ -33,6 +47,26 @@ DB_PORT=3306
 DB_DATABASE=db
 DB_USERNAME=root
 DB_PASSWORD=secret
+
+SESSION_DRIVER=database
+SESSION_LIFETIME=120
+SESSION_ENCRYPT=false
+SESSION_PATH=/
+SESSION_DOMAIN=null
+
+BROADCAST_CONNECTION=log
+FILESYSTEM_DISK=local
+QUEUE_CONNECTION=database
+
+CACHE_STORE=database
+CACHE_PREFIX=
+
+MEMCACHED_HOST=127.0.0.1
+
+REDIS_CLIENT=phpredis
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
 
 MAIL_MAILER=log
 MAIL_SCHEME=null
@@ -42,6 +76,12 @@ MAIL_USERNAME=null
 MAIL_PASSWORD=null
 MAIL_FROM_ADDRESS="hello@example.com"
 MAIL_FROM_NAME="${APP_NAME}"
+
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_DEFAULT_REGION=us-east-1
+AWS_BUCKET=
+AWS_USE_PATH_STYLE_ENDPOINT=false
 
 VITE_APP_NAME="${APP_NAME}"
 
@@ -61,8 +101,6 @@ docker-compose up -d
 
 ```bash
 # Backend
-docker exec -it viagem-backend composer install
-
 Gere a chave do app e o secret JWT:
 docker exec -it viagem-backend php artisan key:generate
 docker exec -it viagem-backend php artisan jwt:secret
@@ -217,6 +255,12 @@ docker-compose exec db mysql -uroot -p
 docker-compose down -v
 rm -rf ./docker/mysql/*
 ```
+
+### ✅ Acesso à Aplicação
+
+Após subir todos os containers com o Docker, você pode acessar a aplicação no navegador pelo seguinte endereço:
+
+🔗 [Clique aqui para acessar a aplicação](http://localhost:5173/login)
 
 ---
 
