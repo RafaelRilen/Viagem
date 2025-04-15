@@ -49,11 +49,12 @@ class OrderService implements OrderServiceInterface
 
     public function updateOrderStatus(Order $order, string $status): array
     {
-        $departureDate = \Carbon\Carbon::parse($order->start_date);
-        $now = \Carbon\Carbon::now();
 
-        if ($status == 'cancelado' && $now->diffInHours($departureDate, false) < 48 ) {
-            return ['error' => 'Pedidos só podem ser cancelados com no mínimo 2 dias de antecedência.', 'status' => 400];
+        if ($this->verifyCancelIsValid($status, $order)) {
+            return [
+                'error' => 'Pedidos só podem ser cancelados com no mínimo 2 dias de antecedência.',
+                'status' => 400
+            ];
         }
 
         $this->orderRepository->updateOrderStatus($order, $status);
@@ -66,6 +67,21 @@ class OrderService implements OrderServiceInterface
         ));
 
         return ['order' => $order];
+    }
+
+    private function verifyCancelIsValid(string $status, Order $order): bool
+    {
+        $isTryingToCancel = strtolower($status) == 'cancelado';
+        $isCurrentlyApproved = $order->status == 'aprovado';
+
+        if (!$isTryingToCancel || !$isCurrentlyApproved) {
+            return false;
+        }
+
+        $departureDate = \Carbon\Carbon::parse($order->start_date);
+        $now = \Carbon\Carbon::now();
+
+        return $now->diffInHours($departureDate, false) < 48;
     }
 
 }
