@@ -1,0 +1,16 @@
+.git
+node_modules
+vendor
+*.log
+*.sqlite
+docker/mysql
+.env
+.env.*
+storage/*.key
+storage/logs
+storage/framework/cache
+storage/framework/sessions
+storage/framework/views
+.idea
+.vscode
+.DS_Store
