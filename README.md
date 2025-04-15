@@ -10,8 +10,8 @@
 ### 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repo.git
-cd seu-repo
+git clone https://github.com/RafaelRilen/Viagem.git
+cd Viagem
 ```
 
 ### 2. Configurar variáveis de ambiente
